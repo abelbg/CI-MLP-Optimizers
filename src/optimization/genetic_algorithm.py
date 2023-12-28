@@ -165,8 +165,8 @@ if __name__ == "__main__":
     hidden_size = 16
 
     # GA Parameters
-    population_size = 4
-    num_generations = 3
+    population_size = 100
+    num_generations = 10
     crossover_prob = 0.8
     mutation_prob = 0.1
     epochs = 100
