@@ -24,7 +24,7 @@ class GAOptimizer:
         self.epochs = epochs
         self.batch_size = batch_size
         self.sigma = sigma  # Standard deviation for Gaussian mutation
-
+        self.performance_history = {'best_fitness': []}
         self.total_weights_biases = self.calculate_total_params(input_size, max_hidden_size)
 
         # Create the DEAP toolbox
@@ -141,7 +141,12 @@ class GAOptimizer:
 
         best_ind = tools.selBest(population, 1)[0]
         best_weights = self.decode_individual(best_ind, return_weights=True)
-        return best_ind, best_weights
+        hidden_size = best_ind[-1]
+        self.performance_history['best_fitness'].append(best_ind.fitness.values[0])
+        return best_ind, best_weights, hidden_size
+
+    def get_performance_history(self):
+        return self.performance_history
 
 
 if __name__ == "__main__":
@@ -191,4 +196,4 @@ if __name__ == "__main__":
     print(ga_optimizer)
     best_individual = ga_optimizer.optimize(train_data, val_data)
     print("Best Individual:", best_individual)
-
+    print(f'Performance History: {ga_optimizer.get_performance_history()}')

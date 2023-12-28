@@ -21,8 +21,8 @@ class ESOptimizer:
         self.sigma = sigma  # Standard deviation for Gaussian noise in mutation
         self.epochs = epochs
         self.batch_size = batch_size
-
         self.total_weights_biases = (input_size + 1) * max_hidden_size + (max_hidden_size + 1)  # total params count
+        self.performance_history = {'best_fitness': []}
 
         # Create DEAP toolbox
         self.toolbox = base.Toolbox()
@@ -104,7 +104,13 @@ class ESOptimizer:
 
         best_ind = tools.selBest(population, 1)[0]
         best_weights = self.decode_individual(best_ind, return_weights=True)
-        return best_ind, best_weights
+        hidden_size = best_ind[-1]  # Assuming the last gene is the hidden size
+        self.performance_history['best_fitness'].append(best_ind.fitness.values[0])
+
+        return best_ind, best_weights, hidden_size
+
+    def get_performance_history(self):
+        return self.performance_history
 
 
 if __name__ == "__main__":
@@ -153,3 +159,4 @@ if __name__ == "__main__":
     print(es_optimizer)
     best_individual = es_optimizer.optimize(train_data, val_data)
     print("Best Individual using ES:", best_individual)
+    print(f'Performance History: {es_optimizer.get_performance_history()}')

@@ -13,6 +13,7 @@ class SGD_Optimizer:
         self.optimizer = optim.SGD(model.parameters(), lr=learning_rate)
         self.epochs = epochs
         self.batch_size = batch_size
+        self.performance_history = {'train_loss': [], 'val_loss': []}
 
     def optimize(self, train_data, val_data):
         X_train, Y_train = train_data
@@ -32,9 +33,14 @@ class SGD_Optimizer:
                 loss.backward()
                 self.optimizer.step()
 
-            if (epoch + 1) % 10 == 0:
-                val_loss = self.evaluate_model((X_val, Y_val))
-                print(f'Epoch [{epoch+1}/{self.epochs}], Loss: {loss.item():.4f}, Val Loss: {val_loss:.4f}')
+            # if (epoch + 1) % 10 == 0:
+            #   val_loss = self.evaluate_model((X_val, Y_val))
+            #   print(f'Epoch [{epoch+1}/{self.epochs}], Loss: {loss.item():.4f}, Val Loss: {val_loss:.4f}')
+
+            train_loss = self.evaluate_model(train_data)
+            val_loss = self.evaluate_model(val_data)
+            self.performance_history['train_loss'].append(train_loss)
+            self.performance_history['val_loss'].append(val_loss)
 
         return self.model
 
@@ -52,6 +58,9 @@ class SGD_Optimizer:
                 outputs = self.model(inputs)
                 val_loss += criterion(outputs, targets).item()
         return val_loss / len(val_loader)
+
+    def get_performance_history(self):
+        return self.performance_history
 
 
 if __name__ == "__main__":
@@ -89,3 +98,5 @@ if __name__ == "__main__":
 
     val_loss = sgd_optimizer.evaluate_model(val_data)
     print(f'Validation Loss: {val_loss:.4f}')
+    print(f'Performance History: {sgd_optimizer.get_performance_history()}')
+
