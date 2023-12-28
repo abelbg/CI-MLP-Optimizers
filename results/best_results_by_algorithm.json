@@ -1,0 +1,35 @@
+{
+  "SGD": {
+    "Optimizer": "SGD",
+    "Training_Loss": 0.016149418978867205,
+    "Validation_Loss": 0.015104696154594421,
+    "Test_Loss": 0.017430863901972772,
+    "Training_Time": 0.9112393856048584,
+    "Hidden_Neurons": 16,
+    "Noise_Level": 0.1,
+    "Feature_Dimension": 2,
+    "Function_Type": "sinusoidal"
+  },
+  "GA": {
+    "Optimizer": "GA",
+    "Training_Loss": 0.03454403249038891,
+    "Validation_Loss": 0.03972000926733017,
+    "Test_Loss": 0.038781949877738954,
+    "Training_Time": 12.821110248565674,
+    "Hidden_Neurons": 4,
+    "Noise_Level": 0.05,
+    "Feature_Dimension": 5,
+    "Function_Type": "sinusoidal"
+  },
+  "ES": {
+    "Optimizer": "ES",
+    "Training_Loss": 219.05231406471947,
+    "Validation_Loss": 214.30408630371093,
+    "Test_Loss": 216.12848205566405,
+    "Training_Time": 9.47787880897522,
+    "Hidden_Neurons": 31,
+    "Noise_Level": 0.05,
+    "Feature_Dimension": 2,
+    "Function_Type": "sinusoidal"
+  }
+}
