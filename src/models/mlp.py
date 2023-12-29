@@ -24,32 +24,18 @@ class MLP(nn.Module):
         nn.init.xavier_uniform_(self.output.weight)
 
     def set_weights(self, weights_and_biases):
-        # Debugging: Print the total size of weights and biases provided
-        # print("Total size of weights_and_biases:", len(weights_and_biases))
-
         # Calculate the split indices for weights and biases for the hidden layer
         hidden_weights_count = self.hidden.in_features * self.hidden.out_features
-        # print("Expected hidden weights count:", hidden_weights_count)
 
         # Split the list into parts for each weight and bias
         hidden_weights = weights_and_biases[:hidden_weights_count]
         hidden_bias = weights_and_biases[hidden_weights_count:hidden_weights_count + self.hidden.out_features]
 
-        # Debugging: Print sizes of hidden weights and biases
-        # print("Actual hidden weights size:", len(hidden_weights))
-        # print("Actual hidden biases size:", len(hidden_bias))
-
         # Calculate indices for the output layer
         output_weights_count = self.output.in_features * self.output.out_features
-        # print("Expected output weights count:", output_weights_count)
-
         output_weights = weights_and_biases[hidden_weights_count + self.hidden.out_features:
                                             hidden_weights_count + self.hidden.out_features + output_weights_count]
         output_bias = weights_and_biases[-self.output.out_features:]
-
-        # Debugging: Print sizes of output weights and biases
-        # print("Actual output weights size:", len(output_weights))
-        # print("Actual output biases size:", len(output_bias))
 
         # Reshape and set the weights and biases
         self.hidden.weight.data = torch.tensor(hidden_weights).view(self.hidden.out_features, self.hidden.in_features)
@@ -57,9 +43,14 @@ class MLP(nn.Module):
         self.output.weight.data = torch.tensor(output_weights).view(self.output.out_features, self.output.in_features)
         self.output.bias.data = torch.tensor(output_bias)
 
-    def set_hidden_layer(self, hidden_size):
+    def set_hidden_layer(self, hidden_size, weights_and_biases=None):
+        # Adjust the architecture of the hidden layer
         self.hidden = nn.Linear(self.input_size, hidden_size)
+        # Adjust the architecture of the output layer
         self.output = nn.Linear(hidden_size, 1)
+        # Set weights and biases if provided
+        if weights_and_biases is not None:
+            self.set_weights(weights_and_biases)
 
 
 if __name__ == "__main__":

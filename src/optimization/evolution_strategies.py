@@ -9,20 +9,28 @@ from torch.utils.data import TensorDataset, DataLoader
 from deap import base, creator, tools
 
 
+# evolution_strategies.py
+
+import random
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torch.utils.data import TensorDataset, DataLoader
+from deap import base, creator, tools
+
 class ESOptimizer:
-    def __init__(self, model, input_size, max_hidden_size,
-                 population_size=100, num_generations=100,
-                 sigma=0.3, epochs=100, batch_size=32):
+    def __init__(self, model, input_size, max_hidden_size=32,
+                 population_size=50, num_generations=100,
+                 sigma=0.25, batch_size=32):
         self.model = model
         self.input_size = input_size
         self.max_hidden_size = max_hidden_size
         self.population_size = population_size
         self.num_generations = num_generations
         self.sigma = sigma  # Standard deviation for Gaussian noise in mutation
-        self.epochs = epochs
         self.batch_size = batch_size
         self.total_weights_biases = (input_size + 1) * max_hidden_size + (max_hidden_size + 1)  # total params count
-        self.performance_history = {'best_fitness': []}
 
         # Create DEAP toolbox
         self.toolbox = base.Toolbox()
@@ -35,19 +43,19 @@ class ESOptimizer:
         self.toolbox.register("mutate", self.mutate_individual)
         self.toolbox.register("population", tools.initRepeat, list, self.toolbox.individual)
         self.toolbox.register("evaluate", self.evaluate_fitness)
-        self.toolbox.register("select", tools.selBest, k=self.population_size // 2)
+        self.toolbox.register("select", tools.selTournament, tournsize=3)
 
     def create_individual(self):
         weights_part = [np.random.uniform(-1, 1) for _ in range(self.total_weights_biases)]
-        neurons_part = [np.random.randint(1, self.max_hidden_size + 1)]
+        neurons_part = [np.random.randint(10, self.max_hidden_size + 1)]
         return creator.Individual(weights_part + neurons_part)
 
     def mutate_individual(self, individual):
-        for i in range(self.total_weights_biases):
+        for i in range(len(individual) - 1):  # Exclude the last gene (hidden layer size)
             if random.random() < self.sigma:
                 individual[i] += np.random.normal(0, self.sigma)
         if random.random() < self.sigma:
-            individual[self.total_weights_biases] = np.random.randint(1, self.max_hidden_size + 1)
+            individual[-1] = np.random.randint(10, self.max_hidden_size + 1)
         return individual,
 
     def evaluate_fitness(self, individual, val_data):
@@ -55,24 +63,18 @@ class ESOptimizer:
         val_loss = self.evaluate_model(val_data)
         return (1 / (1 + val_loss),)
 
-    def decode_individual(self, individual, return_weights=False):
-        hidden_size = individual[self.total_weights_biases]
-        self.model.hidden = nn.Linear(self.input_size, hidden_size)
-        self.model.output = nn.Linear(hidden_size, 1)
-        weights = individual[:self.total_weights_biases]
-        self.model.set_weights(weights)
-        if return_weights:
-            return weights
+    def decode_individual(self, individual):
+        hidden_size = individual[-1]
+        weights = individual[:-1]
+        self.model.set_hidden_layer(hidden_size, weights)
 
     def evaluate_model(self, val_data):
         self.model.eval()
         criterion = nn.MSELoss()
         val_loss = 0
-
         X_val, Y_val = val_data
         val_dataset = TensorDataset(torch.tensor(X_val, dtype=torch.float32), torch.tensor(Y_val, dtype=torch.float32))
         val_loader = DataLoader(val_dataset, batch_size=self.batch_size)
-
         with torch.no_grad():
             for inputs, targets in val_loader:
                 outputs = self.model(inputs)
@@ -87,30 +89,31 @@ class ESOptimizer:
             for ind, fit in zip(population, fitnesses):
                 ind.fitness.values = fit
 
-            parents = self.toolbox.select(population)
-            offspring = [self.toolbox.clone(ind) for ind in parents]
+            # Select the next generation individuals
+            offspring = self.toolbox.select(population, len(population))  # 'k' is the number of individuals to select
 
+            # Clone the selected individuals
+            offspring = list(map(self.toolbox.clone, offspring))
+
+            # Apply mutation to the offspring
             for mutant in offspring:
                 if random.random() < self.sigma:
                     self.toolbox.mutate(mutant)
                     del mutant.fitness.values
 
+            # Evaluate the individuals with an invalid fitness
             invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
             fitnesses = map(lambda ind: self.toolbox.evaluate(ind, val_data), invalid_ind)
             for ind, fit in zip(invalid_ind, fitnesses):
                 ind.fitness.values = fit
 
+            # The offspring is now the new population
             population[:] = offspring
 
+        # Select the best individual from the final population
         best_ind = tools.selBest(population, 1)[0]
-        best_weights = self.decode_individual(best_ind, return_weights=True)
-        hidden_size = best_ind[-1]  # Assuming the last gene is the hidden size
-        self.performance_history['best_fitness'].append(best_ind.fitness.values[0])
-
-        return best_ind, best_weights, hidden_size
-
-    def get_performance_history(self):
-        return self.performance_history
+        hidden_size = best_ind[-1]
+        return best_ind, hidden_size
 
 
 if __name__ == "__main__":
@@ -132,7 +135,6 @@ if __name__ == "__main__":
     population_size = 4
     num_generations = 3
     sigma = 0.1  # Standard deviation for Gaussian noise in mutation
-    epochs = 100
     max_hidden_size = 32
     batch_size = 32
 
@@ -152,11 +154,9 @@ if __name__ == "__main__":
                                population_size=population_size,
                                num_generations=num_generations,
                                sigma=sigma,
-                               epochs=epochs,
                                batch_size=batch_size,
                                input_size=n_features,
                                max_hidden_size=max_hidden_size,)
     print(es_optimizer)
     best_individual = es_optimizer.optimize(train_data, val_data)
     print("Best Individual using ES:", best_individual)
-    print(f'Performance History: {es_optimizer.get_performance_history()}')
