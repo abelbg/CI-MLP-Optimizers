@@ -132,8 +132,8 @@ if __name__ == "__main__":
     hidden_size = 16
 
     # ES Parameters
-    population_size = 4
-    num_generations = 3
+    population_size = 100
+    num_generations = 10
     sigma = 0.1  # Standard deviation for Gaussian noise in mutation
     max_hidden_size = 32
     batch_size = 32
