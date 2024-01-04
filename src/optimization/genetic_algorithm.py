@@ -8,9 +8,9 @@ import random
 
 class GAOptimizer:
     def __init__(self, model, input_size, max_hidden_size=32,
-                 population_size=50, num_generations=100,
-                 crossover_prob=0.8, mutation_prob=0.15,
-                 batch_size=32, sigma=0.1):
+                 population_size=200, num_generations=50,
+                 crossover_prob=0.8, mutation_prob=0.25,
+                 batch_size=32, sigma=0.3):
         self.model = model
         self.input_size = input_size
         self.max_hidden_size = max_hidden_size
@@ -21,6 +21,7 @@ class GAOptimizer:
         self.mutation_prob = mutation_prob
         self.batch_size = batch_size
         self.total_weights_biases = (input_size + 1) * max_hidden_size + (max_hidden_size + 1)
+        self.val_losses = []
 
         # Create DEAP toolbox
         self.toolbox = base.Toolbox()
@@ -74,6 +75,7 @@ class GAOptimizer:
 
     def optimize(self, train_data, val_data):
         population = self.toolbox.population(n=self.population_size)
+
         for gen in range(self.num_generations):
             fitnesses = map(lambda ind: self.toolbox.evaluate(ind, train_data, val_data), population)
             for ind, fit in zip(population, fitnesses):
@@ -94,6 +96,9 @@ class GAOptimizer:
             for ind, fit in zip(invalid_ind, fitnesses):
                 ind.fitness.values = fit
             population[:] = offspring
+            best_ind = tools.selBest(population, 1)[0]
+            self.val_losses.append(1 / best_ind.fitness.values[0] - 1) # Invert fitness to get loss
+
         best_ind = tools.selBest(population, 1)[0]
         hidden_size = best_ind[-1]
         return best_ind, hidden_size

@@ -49,7 +49,7 @@ mlp_regression_project
 ```
 
 ## Prerequisites
-To run the code in this project, you need to have Python 3.x installed along with the following libraries:
+To run the code in this project, you need to have Python 3.7 installed along with the following libraries:
 - PyTorch
 - NumPy
 - Matplotlib
@@ -58,8 +58,10 @@ To run the code in this project, you need to have Python 3.x installed along wit
 - Pandas
 - Seaborn
 
+Additionally, the use of PyCharm as IDE is recommended.
+
 ## Installation
-1. Clone the repository:
+1. If not installed, clone the repository:
 ```bash
 git clone [repository URL]
 ```
@@ -67,9 +69,10 @@ git clone [repository URL]
 ```bash
 pip install -r requirements.txt
 ```
+3. In PyCharm, mark `src` folder as Source.
 
 ## Usage
-To run the benchmarking process:
+To run the benchmarking process execute the following command within the `src` folder:
 
 ```bash
 python main.py
@@ -83,4 +86,4 @@ python main.py
 * main.py: The main driver script that orchestrates the benchmarking and analysis process.
 
 ## Results
-Benchmark results are stored in the results/ directory and include CSV files and plots for performance metrics.
+Benchmark results are stored in the results/ and plots/ directory and include CSV files and plots for performance metrics.

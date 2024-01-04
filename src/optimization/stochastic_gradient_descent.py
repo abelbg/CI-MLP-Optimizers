@@ -13,7 +13,8 @@ class SGD_Optimizer:
         self.optimizer = optim.SGD(model.parameters(), lr=learning_rate, weight_decay=weight_decay)
         self.epochs = epochs
         self.batch_size = batch_size
-
+        self.val_losses = []
+        
     def optimize(self, train_data, val_data):
         X_train, Y_train = train_data
         X_val, Y_val = val_data
@@ -32,12 +33,8 @@ class SGD_Optimizer:
                 loss.backward()
                 self.optimizer.step()
 
-            # if (epoch + 1) % 10 == 0:
-            #   val_loss = self.evaluate_model((X_val, Y_val))
-            #   print(f'Epoch [{epoch+1}/{self.epochs}], Loss: {loss.item():.4f}, Val Loss: {val_loss:.4f}')
-
-            train_loss = self.evaluate_model(train_data)
             val_loss = self.evaluate_model(val_data)
+            self.val_losses.append(val_loss)
 
         return self.model
 

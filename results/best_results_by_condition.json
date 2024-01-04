@@ -2,26 +2,14 @@
   "0.1_3_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 3,
-    "Complexity_Level": "low",
-    "Noise_Level": 0.1,
-    "Hidden_Neurons": 16,
-    "Function_Type": "polynomial",
-    "Training_Loss": 0.0004981774671415968,
-    "Validation_Loss": 0.0006063007487682626,
-    "Test_Loss": 0.0004944810207234696,
-    "Training_Time": 2.8517274856567383
-  },
-  "0.1_3_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 3,
     "Complexity_Level": "medium",
     "Noise_Level": 0.1,
     "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.0408998281610283,
-    "Validation_Loss": 0.03746184557676315,
-    "Test_Loss": 0.044452847167849543,
-    "Training_Time": 2.874276876449585
+    "Function_Type": "polynomial",
+    "Training_Loss": 0.0009125470250816734,
+    "Validation_Loss": 0.0007655655538352827,
+    "Test_Loss": 0.0009571710737266889,
+    "Training_Time": 2.749001979827881
   },
   "0.5_3_polynomial": {
     "Optimizer": "SGD",
@@ -30,46 +18,22 @@
     "Noise_Level": 0.5,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.0010946441828061572,
-    "Validation_Loss": 0.0010237505688564853,
-    "Test_Loss": 0.0010503210651222616,
-    "Training_Time": 2.8946378231048584
-  },
-  "0.5_3_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 3,
-    "Complexity_Level": "medium",
-    "Noise_Level": 0.5,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.036983893252909184,
-    "Validation_Loss": 0.03306378498673439,
-    "Test_Loss": 0.04083029683679342,
-    "Training_Time": 3.9634785652160645
+    "Training_Loss": 0.0013836503670917768,
+    "Validation_Loss": 0.0011547943926416338,
+    "Test_Loss": 0.0012301479311039051,
+    "Training_Time": 2.7857489585876465
   },
   "1.0_3_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 3,
-    "Complexity_Level": "low",
+    "Complexity_Level": "medium",
     "Noise_Level": 1.0,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.0027536701606798238,
-    "Validation_Loss": 0.0029002375202253463,
-    "Test_Loss": 0.0029251497006043794,
-    "Training_Time": 3.993670701980591
-  },
-  "1.0_3_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 3,
-    "Complexity_Level": "high",
-    "Noise_Level": 1.0,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.032291571694341575,
-    "Validation_Loss": 0.029670977499336004,
-    "Test_Loss": 0.033637940511107446,
-    "Training_Time": 3.9850070476531982
+    "Training_Loss": 0.0022255908098128257,
+    "Validation_Loss": 0.002143105880046884,
+    "Test_Loss": 0.002311047779706617,
+    "Training_Time": 4.4434709548950195
   },
   "0.1_6_polynomial": {
     "Optimizer": "SGD",
@@ -78,118 +42,58 @@
     "Noise_Level": 0.1,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.0011205442980016496,
-    "Validation_Loss": 0.0010539596027228982,
-    "Test_Loss": 0.0013378502568230032,
-    "Training_Time": 3.97721004486084
-  },
-  "0.1_6_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 6,
-    "Complexity_Level": "medium",
-    "Noise_Level": 0.1,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.02651042097502134,
-    "Validation_Loss": 0.024068974331021308,
-    "Test_Loss": 0.026293082162737846,
-    "Training_Time": 4.0280609130859375
+    "Training_Loss": 0.002405973486461197,
+    "Validation_Loss": 0.002408647754540046,
+    "Test_Loss": 0.0026301941058288016,
+    "Training_Time": 4.14809775352478
   },
   "0.5_6_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 6,
-    "Complexity_Level": "low",
+    "Complexity_Level": "medium",
     "Noise_Level": 0.5,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.0023748756502754986,
-    "Validation_Loss": 0.002594344038516283,
-    "Test_Loss": 0.0025049010990187527,
-    "Training_Time": 3.9317128658294678
-  },
-  "0.5_6_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 6,
-    "Complexity_Level": "high",
-    "Noise_Level": 0.5,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.025750670963051645,
-    "Validation_Loss": 0.023814848251640798,
-    "Test_Loss": 0.02921800408512354,
-    "Training_Time": 3.9442312717437744
+    "Training_Loss": 0.002016474498139525,
+    "Validation_Loss": 0.002335304014074306,
+    "Test_Loss": 0.002169152535498142,
+    "Training_Time": 4.00909423828125
   },
   "1.0_6_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 6,
-    "Complexity_Level": "low",
+    "Complexity_Level": "medium",
     "Noise_Level": 1.0,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.003760402196679603,
-    "Validation_Loss": 0.0036366989370435476,
-    "Test_Loss": 0.0046065521193668245,
-    "Training_Time": 4.026889324188232
-  },
-  "1.0_6_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 6,
-    "Complexity_Level": "high",
-    "Noise_Level": 1.0,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.024786299115724185,
-    "Validation_Loss": 0.022167565859854223,
-    "Test_Loss": 0.02848086506128311,
-    "Training_Time": 3.968167781829834
+    "Training_Loss": 0.003068378285123882,
+    "Validation_Loss": 0.003193831404981514,
+    "Test_Loss": 0.003151145523103575,
+    "Training_Time": 4.256224870681763
   },
   "0.1_20_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 20,
-    "Complexity_Level": "low",
+    "Complexity_Level": "high",
     "Noise_Level": 0.1,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.005371050729246979,
-    "Validation_Loss": 0.005986033286899328,
-    "Test_Loss": 0.005714810267090797,
-    "Training_Time": 4.016587018966675
-  },
-  "0.1_20_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 20,
-    "Complexity_Level": "low",
-    "Noise_Level": 0.1,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.017777128314430065,
-    "Validation_Loss": 0.018826446402817963,
-    "Test_Loss": 0.020268061850219964,
-    "Training_Time": 4.060842514038086
+    "Training_Loss": 0.007203725791028278,
+    "Validation_Loss": 0.008561353820065657,
+    "Test_Loss": 0.006600258375207583,
+    "Training_Time": 4.050054311752319
   },
   "0.5_20_polynomial": {
     "Optimizer": "SGD",
     "Feature_Dimension": 20,
-    "Complexity_Level": "low",
+    "Complexity_Level": "high",
     "Noise_Level": 0.5,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.00638614025559615,
-    "Validation_Loss": 0.0068522572633810345,
-    "Test_Loss": 0.006950226100161672,
-    "Training_Time": 4.077682733535767
-  },
-  "0.5_20_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 20,
-    "Complexity_Level": "low",
-    "Noise_Level": 0.5,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.018046194708652118,
-    "Validation_Loss": 0.019117263983935116,
-    "Test_Loss": 0.01911418652161956,
-    "Training_Time": 4.075188159942627
+    "Training_Loss": 0.007178510320513989,
+    "Validation_Loss": 0.00962597547719876,
+    "Test_Loss": 0.006859544284331302,
+    "Training_Time": 15.380071640014648
   },
   "1.0_20_polynomial": {
     "Optimizer": "SGD",
@@ -198,21 +102,9 @@
     "Noise_Level": 1.0,
     "Hidden_Neurons": 16,
     "Function_Type": "polynomial",
-    "Training_Loss": 0.009149003583429889,
-    "Validation_Loss": 0.008545940835028886,
-    "Test_Loss": 0.008640999416820705,
-    "Training_Time": 4.034560441970825
-  },
-  "1.0_20_sinusoidal": {
-    "Optimizer": "SGD",
-    "Feature_Dimension": 20,
-    "Complexity_Level": "high",
-    "Noise_Level": 1.0,
-    "Hidden_Neurons": 16,
-    "Function_Type": "sinusoidal",
-    "Training_Loss": 0.017530997241423887,
-    "Validation_Loss": 0.018466185405850412,
-    "Test_Loss": 0.018743270169943572,
-    "Training_Time": 3.997178316116333
+    "Training_Loss": 0.007188419144685296,
+    "Validation_Loss": 0.008881298235307138,
+    "Test_Loss": 0.0064858671588202315,
+    "Training_Time": 15.658854246139526
   }
 }

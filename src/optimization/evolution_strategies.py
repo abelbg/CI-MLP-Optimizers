@@ -21,8 +21,8 @@ from deap import base, creator, tools
 
 class ESOptimizer:
     def __init__(self, model, input_size, max_hidden_size=32,
-                 population_size=50, num_generations=100,
-                 sigma=0.25, batch_size=32):
+                 population_size=200, num_generations=50,
+                 sigma=0.3, batch_size=32):
         self.model = model
         self.input_size = input_size
         self.max_hidden_size = max_hidden_size
@@ -31,6 +31,7 @@ class ESOptimizer:
         self.sigma = sigma  # Standard deviation for Gaussian noise in mutation
         self.batch_size = batch_size
         self.total_weights_biases = (input_size + 1) * max_hidden_size + (max_hidden_size + 1)  # total params count
+        self.val_losses = [] 
 
         # Create DEAP toolbox
         self.toolbox = base.Toolbox()
@@ -109,6 +110,8 @@ class ESOptimizer:
 
             # The offspring is now the new population
             population[:] = offspring
+            best_ind = tools.selBest(population, 1)[0]
+            self.val_losses.append(1 / best_ind.fitness.values[0] - 1) # Invert fitness to get loss
 
         # Select the best individual from the final population
         best_ind = tools.selBest(population, 1)[0]
