@@ -63,7 +63,7 @@ Additionally, the use of PyCharm as IDE is recommended.
 ## Installation
 1. If not installed, clone the repository:
 ```bash
-git clone [repository URL]
+git clone https://github.com/abelbg/CI-MLP-Optimizers
 ```
 2. Install the required dependencies:
 ```bash
